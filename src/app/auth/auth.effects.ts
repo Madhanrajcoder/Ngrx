@@ -1,15 +1,34 @@
+import { loginActions } from './auth.actions';
 import { Injectable } from "@angular/core";
-import { Actions } from "@ngrx/effects";
-
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { AuthActions } from "./action-type";
+import { tap } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable()
-export class AuthEffects{
+export class AuthEffects {
+  constructor(private actions$: Actions, private router: Router) {}
 
-    constructor(private actions$: Actions){
-        actions$.subscribe(action=>{
-            if(action.type=='[Login Page] User Login'){
-                localStorage.setItem('user',JSON.stringify(action["user"]));
-            }
-        });
-    }
+  login$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginActions),
+        tap((action) =>
+          localStorage.setItem("user", JSON.stringify(action["user"]))
+        )
+      ),
+    { dispatch: false }
+  );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.logout),
+        tap((action) => {
+          localStorage.removeItem("user");
+          this.router.navigateByUrl("/login");
+        })
+      ),
+    { dispatch: false }
+  );
 }
