@@ -8,7 +8,6 @@ import {
   on,
 } from "@ngrx/store";
 import { AuthActions } from '../action-type';
-import { routerReducer } from '@ngrx/router-store';
 
 export const authFeatureKey = "auth";
 
