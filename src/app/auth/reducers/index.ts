@@ -8,6 +8,7 @@ import {
   on,
 } from "@ngrx/store";
 import { AuthActions } from '../action-type';
+import { routerReducer } from '@ngrx/router-store';
 
 export const authFeatureKey = "auth";
 
@@ -20,7 +21,8 @@ export const intialAuthState:AuthState={
 }
 
 export const reducers: ActionReducerMap<AuthState> = {
-  user: undefined
+  user: undefined,
+  // router: routerReducer,
 };
 
 export const metaReducers: MetaReducer<AuthState>[] = isDevMode() ? [] : [];
