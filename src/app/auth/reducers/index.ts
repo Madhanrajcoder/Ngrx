@@ -21,7 +21,6 @@ export const intialAuthState:AuthState={
 
 export const reducers: ActionReducerMap<AuthState> = {
   user: undefined,
-  // router: routerReducer,
 };
 
 export const metaReducers: MetaReducer<AuthState>[] = isDevMode() ? [] : [];
